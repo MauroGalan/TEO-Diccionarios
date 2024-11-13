@@ -11,7 +11,10 @@ def crear_dicc_titulos_anyos(bsos:list[tuple[str,int]])->dict[str, int]:
     :return: Un diccionario que tiene como clave los títulos y como valores los años
     :rtype: {str:int}
     '''
-    pass
+    res = {}
+    for titulo,año in bsos:
+        res[titulo] = año
+    return res
 
 def crear_dicc_titulos_anyos2(bsos:list[tuple[str,int]])->dict[str, int]:
     '''
@@ -22,7 +25,8 @@ def crear_dicc_titulos_anyos2(bsos:list[tuple[str,int]])->dict[str, int]:
     :return: Un diccionario que tiene como clave los títulos y como valores los años
     :rtype: {str:int}
     '''
-    pass
+    #Definir por comprensión
+    return{titulo:año for titulo,año in bsos}
 
 def crear_dicc_anyos_conteo_titulos (bsos:list[tuple[str,int]])->dict[int, int]:
     '''
@@ -34,7 +38,17 @@ def crear_dicc_anyos_conteo_titulos (bsos:list[tuple[str,int]])->dict[int, int]:
           de ese año
     :rtype: {int:int}
     '''
-    pass
+    res = {}
+    for titulo, año in bsos:
+        if año not in res:
+            res[año]=0
+        res[año]+=1
+    return res
+
+#Es equivalente a lo siguiente, usando el counter que te cuenta por ti.
+from collections import Counter
+def crear_dicc_años_conteo_COUNTER(bsos):
+    return Counter(año for titulo,año in bsos)
 
 def crear_dicc_anyos_lista_titulos (bsos:list[tuple[str,int]])->dict[int, list[str]]:
     '''
@@ -46,7 +60,27 @@ def crear_dicc_anyos_lista_titulos (bsos:list[tuple[str,int]])->dict[int, list[s
           de ese año
     :rtype:{int:[str]}
     '''
-    pass
+    res={}
+    for titulo,año in bsos:
+        if año not in res:
+            res[año] = []
+        res[año].append(titulo)
+    return res
+
+#Tiene un tipo determinado inicializado el valor neutro, list = [], set = {}, int = 0...
+from collections import defaultdict
+def crear_dicc_años_lista_defaultdict(bsos):
+    res= defaultdict(list)
+    for titulo, año in bsos:
+        res[año].append(titulo)
+    return res
+
+def crear_dicc_anyos_conteo_titulos_defaultdict (bsos:list[tuple[str,int]])->dict[int, int]:
+    res = defaultdict(int)
+    for titulo, año in bsos:
+        res[año]+=1
+    return res
+
 
 def obtener_clave_mayor(dicc_bso:dict[str,int])->str:
     '''
